@@ -1,364 +1,148 @@
-/* Professional ROV Dashboard Styles */
-
 :root {
-  --bg-dark: #0a0e13;
-  --bg-panel: #0d1520;
-  --bg-deep: #060a0d;
-  --color-accent: #378add;
-  --color-accent-light: #7abeee;
-  --color-status: #1d9e75;
-  --color-grid: #1a2a3a;
-  --color-text-dim: #2a4a6a;
-  --color-text-subtle: #1a3347;
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --bg-main: #f8fafc;
+  --bg-panel: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --accent-blue: #0284c7;
+  --accent-green: #16a34a;
 }
 
-.rov-dashboard {
-  background: var(--bg-dark);
-  font-family: var(--font-sans);
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
+body {
+  background: var(--bg-main);
+  margin: 0;
+  padding: 0;
+  color: var(--text-main);
 }
 
 .db {
-  background: var(--bg-panel);
-  border-radius: 10px;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
+  background: var(--bg-main);
+  font-family: var(--font-sans);
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  padding: 12px;
+  gap: 12px;
+  box-sizing: border-box;
 }
 
-/* TOP BAR */
 .topbar {
   background: var(--bg-panel);
-  border-bottom: 1px solid var(--color-grid);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 16px;
-  height: 40px;
+  padding: 0 20px;
+  height: 56px;
   flex-shrink: 0;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
 .logo {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--color-accent);
-  letter-spacing: 0.08em;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: 0.05em;
 }
 
 .top-stats {
   display: flex;
-  gap: 20px;
+  gap: 30px;
   align-items: center;
 }
 
 .stat {
-  font-size: 11px;
-  color: var(--color-text-dim);
-}
-
-.stat span {
-  color: var(--color-accent-light);
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
   font-weight: 500;
 }
 
+.stat span {
+  color: var(--accent-blue);
+  font-weight: 700;
+  font-size: 14px;
+  margin-left: 6px;
+}
+
 .live-dot {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: #cc3333;
+  background: var(--accent-green);
   display: inline-block;
-  margin-right: 5px;
-  opacity: 0.5;
+  margin-right: 6px;
 }
 
-.live-dot.active {
-  background: var(--color-status);
-  opacity: 1;
-  animation: pulse 1.5s ease-in-out infinite;
-}
+.live-dot.offline { background: #dc2626; }
 
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.6;
-  }
-}
-
-/* PANELS */
 .panels {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 2px;
-  background: var(--bg-deep);
-  flex: 1;
-  overflow: hidden;
+  gap: 12px;
+  flex-grow: 1;
 }
 
 .panel {
   background: var(--bg-panel);
-  position: relative;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
 .ph {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px 12px;
-  border-bottom: 1px solid #12202e;
-  flex-shrink: 0;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-color);
+  background: #f1f5f9;
 }
 
 .plabel {
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--color-text-dim);
-  letter-spacing: 0.08em;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-main);
   text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-.ptag {
-  font-size: 10px;
-  color: var(--color-text-subtle);
-  background: #0a1520;
-  border: 1px solid var(--color-text-subtle);
-  border-radius: 3px;
-  padding: 1px 6px;
-}
-
-.pval {
-  font-size: 11px;
-  color: var(--color-accent);
-  font-weight: 500;
-}
-
-/* TRAJECTORY PANEL */
-.traj-panel {
-  flex: 1;
-  background: linear-gradient(135deg, #06101a 0%, #0a1520 100%);
+.traj-panel, .map-panel {
+  flex-grow: 1;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  overflow: hidden;
-  min-height: 300px;
+  background: #fafaf9; /* Very light warm grey for contrast */
 }
 
-.traj-panel canvas {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-/* MAP PANEL */
-.map-panel {
-  flex: 1;
-  position: relative;
-  overflow: hidden;
-  min-height: 300px;
-  background: linear-gradient(135deg, #06101a 0%, #0a1520 100%);
-}
-
-.map-badge {
-  position: absolute;
-  top: 9px;
-  right: 10px;
-  background: rgba(6, 14, 26, 0.9);
-  border: 1px solid var(--color-text-subtle);
-  border-radius: 4px;
-  padding: 3px 9px;
-  font-size: 10px;
-  color: #5dcaa5;
-  z-index: 10;
-}
-
-/* DEPTH PANEL */
-.depth-panel {
-  grid-column: 1 / span 2;
-  min-height: 160px;
-}
-
-.depth-inner {
-  padding: 10px 14px 8px;
-  height: 100%;
-}
-
-.depth-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 4px;
-}
-
-.depth-title {
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--color-text-dim);
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-}
-
-.depth-val {
-  font-size: 11px;
-  color: var(--color-accent);
-  font-weight: 500;
-}
-
-.axis-y {
-  position: absolute;
-  left: 14px;
-  top: 36px;
-  bottom: 22px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  z-index: 5;
-}
-
-.ay {
-  font-size: 9px;
-  color: var(--color-text-subtle);
-}
-
-.chart-area {
-  margin-left: 36px;
-  margin-right: 10px;
-  height: 90px;
-  position: relative;
-  top: -4px;
-}
-
-.axis-x {
-  margin-left: 36px;
-  margin-right: 10px;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 2px;
-}
-
-.ax {
-  font-size: 9px;
-  color: var(--color-text-subtle);
-}
-
-/* COORDINATE OVERLAY */
 .coord-overlay {
   position: absolute;
-  bottom: 10px;
-  left: 12px;
+  bottom: 16px;
+  left: 16px;
   display: flex;
-  gap: 8px;
-  z-index: 5;
+  gap: 12px;
 }
 
 .co-item {
-  background: rgba(6, 16, 26, 0.8);
-  border: 1px solid var(--color-text-subtle);
-  border-radius: 3px;
-  padding: 3px 8px;
-  font-size: 10px;
-  color: var(--color-text-dim);
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
 .co-item span {
-  color: var(--color-accent-light);
-}
-
-/* STATUS BAR */
-.statusbar {
-  background: var(--bg-deep);
-  border-top: 1px solid var(--bg-panel);
-  display: flex;
-  align-items: center;
-  padding: 0 14px;
-  height: 22px;
-  gap: 14px;
-  flex-shrink: 0;
-  font-size: 10px;
-}
-
-.sb {
-  color: var(--color-text-dim);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  white-space: nowrap;
-}
-
-.sb span {
-  color: #2a4a6a;
-}
-
-.sbsep {
-  width: 1px;
-  height: 10px;
-  background: #111e2a;
-}
-
-.live-dot-small {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--color-status);
-  display: inline-block;
-  animation: pulse 1.5s ease-in-out infinite;
-}
-
-/* Leaflet Map Styling */
-:global(.leaflet-container) {
-  background: linear-gradient(135deg, #06101a 0%, #0a1520 100%) !important;
-  font-family: var(--font-sans) !important;
-}
-
-:global(.leaflet-tile-pane) {
-  filter: brightness(0.8) contrast(1.1);
-}
-
-/* Responsive */
-@media (max-width: 1400px) {
-  .panels {
-    grid-template-columns: 1fr;
-  }
-
-  .depth-panel {
-    grid-column: 1 / span 1;
-  }
-
-  .top-stats {
-    gap: 12px;
-  }
-
-  .stat {
-    font-size: 10px;
-  }
-}
-
-@media (max-width: 768px) {
-  .topbar {
-    flex-direction: column;
-    height: auto;
-    padding: 8px 12px;
-    gap: 8px;
-  }
-
-  .top-stats {
-    width: 100%;
-    justify-content: space-around;
-  }
-
-  .rov-dashboard {
-    padding: 4px;
-  }
+  color: var(--text-main);
+  font-family: monospace;
+  font-size: 13px;
+  margin-left: 6px;
 }

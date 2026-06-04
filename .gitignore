@@ -1,0 +1,16 @@
+# Node
+node_modules/
+dist/
+package-lock.json
+
+# ROS 2
+build/
+install/
+log/
+
+# Backups
+*.zip
+
+# Python
+__pycache__/
+*.pyc
